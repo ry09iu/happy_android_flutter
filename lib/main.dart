@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false, //取出debug
               theme: ThemeData(
                 // Add the 3 lines from here...
-                primaryColor: Colors.redAccent,
+                primaryColor: Colors.white,
                 platform: TargetPlatform.iOS, //右滑返回
               ),
               title: '玩 Android',

@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/api/home.dart';
 import 'package:happy_android_flutter/model/home_banner.dart';
+import 'package:happy_android_flutter/pages/home/home_banner_view.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,18 +22,22 @@ class _HomePageState extends State<HomePage> {
   Future<void> initHomeData() async {
     var banners = await ApiHome.getHomeBanner(context: context, params: {});
     print(banners);
+    setState(() {
+      _banners = banners;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_banners == null) {
+      return CupertinoActivityIndicator();
+    }
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text('首页'),
         elevation: 0,
-      ),
-      body: Center(
-        child: Text('首页内容'),
-      ),
+      ),*/
+      body: HomeBannerView(_banners),
     );
   }
 }

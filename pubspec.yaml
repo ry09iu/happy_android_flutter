@@ -33,6 +33,7 @@ dependencies:
   fluttertoast: ^7.0.2
   dio: ^3.0.10
   cached_network_image: ^2.2.0+1
+  carousel_slider: ^2.2.1
 
 dev_dependencies:
   flutter_test:
