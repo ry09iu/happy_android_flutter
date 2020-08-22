@@ -46,7 +46,7 @@ class HomeArticleItemView extends StatelessWidget {
     return Container(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         article.fresh
             ? Row(
@@ -61,7 +61,7 @@ class HomeArticleItemView extends StatelessWidget {
             : Container(),
         Text(
           article.author != '' ? article.author : article.shareUser,
-          style: _textStyle(),
+          style: TextStyle(color: Color(0xFF818181), fontSize: duSetSp(30)),
         ),
       ],
     ));
@@ -98,6 +98,6 @@ class HomeArticleItemView extends StatelessWidget {
   }
 
   TextStyle _textStyle() {
-    return TextStyle(color: Color(0xFF818181), fontSize: duSetSp(30));
+    return TextStyle(color: Color(0xFF616161), fontSize: duSetSp(30));
   }
 }

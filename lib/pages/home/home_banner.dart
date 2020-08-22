@@ -7,14 +7,12 @@ import 'package:happy_android_flutter/util/screen.dart';
 class HomeBannerView extends StatelessWidget {
   final List<HomeBannerModel> banners;
 
-  /*const HomeBannerView({Key key, this.banners}) : super(key: key);*/
   HomeBannerView(this.banners);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      /*padding: EdgeInsets.only(top: Screen.topSafeHeight),*/
       child: CarouselSlider(
         options: CarouselOptions(
           aspectRatio: 2,
