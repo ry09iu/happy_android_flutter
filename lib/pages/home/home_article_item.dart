@@ -45,6 +45,8 @@ class HomeArticleItemView extends StatelessWidget {
   Widget _articleItemTop() {
     return Container(
         child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         article.fresh
             ? Row(
@@ -68,7 +70,7 @@ class HomeArticleItemView extends StatelessWidget {
   Widget _articleItemBottom() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         article.type == 1
             ? Row(
@@ -96,6 +98,6 @@ class HomeArticleItemView extends StatelessWidget {
   }
 
   TextStyle _textStyle() {
-    return TextStyle(color: Color(0xFF999999), fontSize: duSetSp(30));
+    return TextStyle(color: Color(0xFF818181), fontSize: duSetSp(30));
   }
 }
