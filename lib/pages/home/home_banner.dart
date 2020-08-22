@@ -14,7 +14,7 @@ class HomeBannerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.only(top: Screen.topSafeHeight),
+      /*padding: EdgeInsets.only(top: Screen.topSafeHeight),*/
       child: CarouselSlider(
         options: CarouselOptions(
           aspectRatio: 2,
