@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/model/article_list.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
@@ -9,34 +10,39 @@ class HomeArticleItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: duSetW(44), right: duSetW(44)),
+    return GestureDetector(
+      onTap: () {
+        AppNavigator.pushWeb(context, article.link, article.title);
+      },
       child: Container(
-        padding: EdgeInsets.only(top: duSetH(36), bottom: duSetH(36)),
-        decoration: BoxDecoration(
-          border:
-              Border(bottom: BorderSide(color: Color(0xFFE1E1E1), width: 0.5)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _articleItemTop(),
-            SizedBox(height: duSetH(35)),
-            Text(
-              article.title,
-              style: TextStyle(
-                color: Color(0xFF333333),
-                fontSize: duSetSp(40),
-                fontWeight: FontWeight.w700,
+        padding: EdgeInsets.only(left: duSetW(44), right: duSetW(44)),
+        child: Container(
+          padding: EdgeInsets.only(top: duSetH(36), bottom: duSetH(36)),
+          decoration: BoxDecoration(
+            border: Border(
+                bottom: BorderSide(color: Color(0xFFE1E1E1), width: 0.5)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _articleItemTop(),
+              SizedBox(height: duSetH(35)),
+              Text(
+                article.title,
+                style: TextStyle(
+                  color: Color(0xFF333333),
+                  fontSize: duSetSp(40),
+                  fontWeight: FontWeight.w700,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
-            SizedBox(height: duSetH(20)),
-            /*Text(article.desc),*/
-            _articleItemBottom(),
-          ],
+              SizedBox(height: duSetH(20)),
+              /*Text(article.desc),*/
+              _articleItemBottom(),
+            ],
+          ),
         ),
       ),
     );
@@ -98,6 +104,6 @@ class HomeArticleItemView extends StatelessWidget {
   }
 
   TextStyle _textStyle() {
-    return TextStyle(color: Color(0xFF616161), fontSize: duSetSp(30));
+    return TextStyle(color: Color(0xFF515151), fontSize: duSetSp(30));
   }
 }

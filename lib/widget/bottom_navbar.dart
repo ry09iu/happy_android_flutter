@@ -62,7 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Container(
       width: Screen.width,
-      height: 200.h,
+      height: duSetH(200),
       child: BottomNavigationBar(
         selectedItemColor: Colors.redAccent,
         elevation: 5,
