@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
+import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/article_list.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
@@ -38,7 +39,7 @@ class HomeArticleItemView extends StatelessWidget {
                     padding: EdgeInsets.all(0),
                   ),
                   'html': Style(
-                    color: Color(0xFF333333),
+                    color: AppColor.primaryText,
                     fontSize: FontSize(duSetSp(40)),
                     fontWeight: FontWeight.w700,
                   ),

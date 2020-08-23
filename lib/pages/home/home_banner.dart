@@ -2,11 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/model/home_banner.dart';
 import 'package:happy_android_flutter/util/screen.dart';
-import 'package:happy_android_flutter/widget/custom_web_view.dart';
 
 class HomeBannerView extends StatelessWidget {
   final List<HomeBannerModel> banners;

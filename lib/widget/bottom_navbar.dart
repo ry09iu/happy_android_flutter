@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
 class BottomNavBar extends StatefulWidget {

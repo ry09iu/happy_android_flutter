@@ -33,9 +33,9 @@ class _HomePageState extends State<HomePage>
     var banners = await ApiHome.homeBanner(context: context);
     var articleTop = await ApiHome.articleTop(context: context);
     var articleList = await ApiHome.articleList(context: context);
-    print(banners);
+/*    print(banners);
     print(articleTop);
-    print(articleList);
+    print(articleList);*/
     setState(() {
       _banners = banners;
       _articleList.addAll(articleTop);
