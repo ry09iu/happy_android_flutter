@@ -53,8 +53,17 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    if (_banners == null || _articleList == null) {
-      return CupertinoActivityIndicator();
+    if (_banners.length == 0 || _articleList.length == 0) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('首页'),
+          elevation: 0,
+        ),
+        backgroundColor: Colors.white,
+        body: Center(
+          child: CupertinoActivityIndicator(),
+        ),
+      );
     }
     return Scaffold(
       appBar: AppBar(
