@@ -4,6 +4,7 @@ import 'package:happy_android_flutter/api/home.dart';
 import 'package:happy_android_flutter/model/article_list.dart';
 import 'package:happy_android_flutter/model/home_banner.dart';
 import 'package:happy_android_flutter/pages/home/home_article_list.dart';
+import 'package:happy_android_flutter/widget/toast.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -32,13 +33,14 @@ class _HomePageState extends State<HomePage>
     var banners = await ApiHome.homeBanner(context: context);
     var articleTop = await ApiHome.articleTop(context: context);
     var articleList = await ApiHome.articleList(context: context);
-    /*print(banners);
+    print(banners);
     print(articleTop);
-    print(articleList);*/
+    print(articleList);
     setState(() {
       _banners = banners;
       _articleList.addAll(articleTop);
       _articleList.addAll(articleList);
+      showToast(msg: '加载完毕');
     });
   }
 

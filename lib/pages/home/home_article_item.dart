@@ -44,16 +44,6 @@ class HomeArticleItemView extends StatelessWidget {
                   ),
                 },
               ),
-              /*Text(
-                article.title,
-                style: TextStyle(
-                  color: Color(0xFF333333),
-                  fontSize: duSetSp(40),
-                  fontWeight: FontWeight.w700,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),*/
               SizedBox(height: duSetH(20)),
               /*Text(article.desc),*/
               _articleItemBottom(),

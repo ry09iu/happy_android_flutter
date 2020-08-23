@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 Future<bool> showToast({
   @required String msg,
-  Color backgroundColor = Colors.black38,
   Color textColor = Colors.white,
 }) async {
   return await Fluttertoast.showToast(
@@ -11,8 +10,8 @@ Future<bool> showToast({
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,
-    backgroundColor: backgroundColor,
+    backgroundColor: Color.fromARGB(120, 255, 255, 255),
     textColor: textColor,
-    fontSize: 16,
+    fontSize: 14,
   );
 }
