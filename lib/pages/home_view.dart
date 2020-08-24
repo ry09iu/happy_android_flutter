@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_android_flutter/pages/home/home_page.dart';
 import 'package:happy_android_flutter/pages/project/project_page.dart';
 import 'package:happy_android_flutter/pages/user/user_page.dart';
+import 'package:happy_android_flutter/pages/wx_article/wx_article_page.dart';
 import 'package:happy_android_flutter/widget/bottom_navbar.dart';
 
 class HomeView extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
     pageList
       ..add(HomePage())
       ..add(ProjectPage())
-      ..add(HomePage())
+      ..add(WxArticlePage())
       ..add(UserPage());
     super.initState();
   }
