@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+  String _loadingText = '加载更多';
   List<HomeBannerModel> _banners = List();
   List<ArticleListModel> _articleList = List();
 
@@ -47,7 +48,11 @@ class _HomePageState extends State<HomePage>
   Future<void> _loadMore(page) async {
     var articleList = await ApiHome.articleList(context: context, page: page);
     setState(() {
-      _articleList.addAll(articleList);
+      if (articleList.length == 0) {
+        _loadingText = '没有更多';
+      } else {
+        _articleList.addAll(articleList);
+      }
     });
   }
 
@@ -73,7 +78,8 @@ class _HomePageState extends State<HomePage>
       backgroundColor: Colors.white,
       body: RefreshIndicator(
         onRefresh: _pullToRefresh,
-        child: HomeArticleListView(_banners, _articleList, _loadMore),
+        child: HomeArticleListView(
+            _banners, _articleList, _loadingText, _loadMore),
       ),
     );
   }

@@ -19,6 +19,7 @@ class _ProjectListViewState extends State<ProjectListView>
     with AutomaticKeepAliveClientMixin {
   int _page = 1;
   bool _isLoading = false;
+  String _loadingText = '加载更多';
   List<ProjectListModel> _projectList;
   ScrollController _scrollController;
 
@@ -47,9 +48,11 @@ class _ProjectListViewState extends State<ProjectListView>
         context: context, page: _page, cid: widget.cid);
     /*print(list);*/
     setState(() {
-      if (loadMore) {
+      if (loadMore && list.length > 0) {
         _isLoading = false;
         _projectList.addAll(list);
+      } else if (list.length == 0) {
+        _loadingText = '没有更多';
       } else {
         _projectList = list;
         showToast(msg: '刷新完毕');
@@ -103,10 +106,10 @@ class _ProjectListViewState extends State<ProjectListView>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CupertinoActivityIndicator(),
+          _loadingText == '没有更多' ? Container() : CupertinoActivityIndicator(),
           SizedBox(width: 6),
           Text(
-            '加载更多',
+            _loadingText,
             style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
           )
         ],

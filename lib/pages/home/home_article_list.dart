@@ -9,9 +9,11 @@ import 'package:happy_android_flutter/util/screen.dart';
 class HomeArticleListView extends StatefulWidget {
   final List<HomeBannerModel> banners;
   final List<ArticleListModel> article;
+  final String loadingText;
   ValueChanged loadCallBack;
 
-  HomeArticleListView(this.banners, this.article, this.loadCallBack);
+  HomeArticleListView(
+      this.banners, this.article, this.loadingText, this.loadCallBack);
 
   @override
   _HomeArticleListViewState createState() => _HomeArticleListViewState();
@@ -76,10 +78,12 @@ class _HomeArticleListViewState extends State<HomeArticleListView> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CupertinoActivityIndicator(),
+          widget.loadingText == '没有更多'
+              ? Container()
+              : CupertinoActivityIndicator(),
           SizedBox(width: 6),
           Text(
-            '加载更多',
+            widget.loadingText,
             style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
           )
         ],
