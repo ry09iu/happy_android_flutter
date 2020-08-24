@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:happy_android_flutter/util/screen.dart';
 import 'package:share/share.dart';
 
 class CustomWebView extends StatefulWidget {
@@ -39,14 +40,19 @@ class _CustomWebViewState extends State<CustomWebView> {
           title: Text(this.widget.title ?? ''),
           leading: GestureDetector(
             onTap: back,
-            child: Image.asset('assets/images/icon_arrow_back_black.png'),
+            child: Icon(Icons.arrow_back),
+            /*child: Image.asset('assets/images/icon_arrow_back_black.png'),*/
           ),
           actions: <Widget>[
             GestureDetector(
               onTap: () {
                 Share.share(this.widget.url);
               },
-              child: Image.asset('assets/images/icon_menu_share.png'),
+              child: Container(
+                margin: EdgeInsets.only(right: duSetW(60)),
+                child: Icon(Icons.share),
+              ),
+              /*child: Image.asset('assets/images/icon_menu_share.png'),*/
             )
           ],
         ),
@@ -62,7 +68,7 @@ class _CustomWebViewState extends State<CustomWebView> {
     );
   }
 
-  Future<bool> _onWillPop () {
+  Future<bool> _onWillPop() {
     flutterWebviewPlugin.close();
     Navigator.pop(context);
     return Future.value(true);
