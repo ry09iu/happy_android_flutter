@@ -28,9 +28,9 @@ class _HomeArticleListViewState extends State<HomeArticleListView> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
-      var maxScroll = _scrollController.position.maxScrollExtent;
+      var maxScroll = _scrollController.position.maxScrollExtent - duSetH(200);
       var pixels = _scrollController.position.pixels;
-      if (maxScroll == pixels) {
+      if (pixels >= maxScroll) {
         print('加载更多');
         _page += 1;
         setState(() {

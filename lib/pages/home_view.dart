@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:happy_android_flutter/pages/home/home_page.dart';
 import 'package:happy_android_flutter/pages/project/project_page.dart';
+import 'package:happy_android_flutter/pages/user/user_page.dart';
 import 'package:happy_android_flutter/widget/bottom_navbar.dart';
 
 class HomeView extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
       ..add(HomePage())
       ..add(ProjectPage())
       ..add(HomePage())
-      ..add(ProjectPage());
+      ..add(UserPage());
     super.initState();
   }
 

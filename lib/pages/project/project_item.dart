@@ -60,7 +60,7 @@ class ProjectItemView extends StatelessWidget {
         children: <Widget>[
           Container(
             width: width,
-            height: duSetH(190),
+            /*height: duSetH(190),*/
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +74,6 @@ class ProjectItemView extends StatelessWidget {
                       color: AppColor.primaryText,
                       fontSize: FontSize(duSetSp(40)),
                       fontWeight: FontWeight.w700,
-                      height: duSetH(120),
                     ),
                   },
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -32,25 +33,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
     ),
   ];
 
-  /*final List<BottomNavigationBarItem> _bottomTabs = <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      title: Text('首页'),
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.perm_contact_calendar),
-      title: Text('项目'),
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.account_balance_wallet),
-      title: Text('公众号'),
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      title: Text('我的'),
-    ),
-  ];*/
-
   @override
   void initState() {
     // TODO: implement initState
@@ -63,7 +45,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       width: Screen.width,
       height: duSetH(200),
       child: BottomNavigationBar(
-        selectedItemColor: Colors.redAccent,
+        selectedItemColor: AppColor.primaryColor,
         elevation: 5,
         items: _navTabs,
         currentIndex: _currentIndex,

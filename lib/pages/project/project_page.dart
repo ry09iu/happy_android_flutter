@@ -60,7 +60,7 @@ class _ProjectPageState extends State<ProjectPage> {
           }).toList(),
           controller: _tabController,
           isScrollable: true,
-          indicatorColor: Colors.redAccent,
+          indicatorColor: AppColor.primaryColor,
           indicatorSize: TabBarIndicatorSize.label,
           indicatorWeight: duSetW(7),
           labelStyle: TextStyle(

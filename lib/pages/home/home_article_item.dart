@@ -95,10 +95,11 @@ class HomeArticleItemView extends StatelessWidget {
                       child: Text(
                         '置顶',
                         style: TextStyle(
-                            fontSize: duSetSp(24), color: Colors.redAccent),
+                            fontSize: duSetSp(24),
+                            color: AppColor.primaryColor),
                       ),
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.redAccent),
+                          border: Border.all(color: AppColor.primaryColor),
                           borderRadius: BorderRadius.all(Radius.circular(2))),
                     ),
                     SizedBox(width: duSetW(12)),

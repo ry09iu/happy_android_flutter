@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/api/project.dart';
 import 'package:happy_android_flutter/model/project_list.dart';
 import 'package:happy_android_flutter/pages/project/project_item.dart';
+import 'package:happy_android_flutter/util/screen.dart';
+import 'package:happy_android_flutter/widget/toast.dart';
 
 class ProjectListView extends StatefulWidget {
   final int cid;
@@ -25,16 +27,40 @@ class _ProjectListViewState extends State<ProjectListView>
     // TODO: implement initState
     super.initState();
     _scrollController = ScrollController();
-    initListData();
+    _scrollController.addListener(() {
+      var maxScroll = _scrollController.position.maxScrollExtent - duSetH(200);
+      var pixels = _scrollController.position.pixels;
+      if (pixels >= maxScroll) {
+        print('加载更多');
+        _page += 1;
+        setState(() {
+          _isLoading = true;
+          initListData(true);
+        });
+      }
+    });
+    initListData(false);
   }
 
-  Future<void> initListData() async {
+  Future<void> initListData(bool loadMore) async {
     var list = await ApiProject.projectList(
         context: context, page: _page, cid: widget.cid);
-    print(list);
+    /*print(list);*/
     setState(() {
-      _projectList = list;
+      if (loadMore) {
+        _isLoading = false;
+        _projectList.addAll(list);
+      } else {
+        _projectList = list;
+        showToast(msg: '刷新完毕');
+      }
     });
+  }
+
+  Future<void> _pullToRefresh() async {
+    _page = 1;
+    _projectList.clear();
+    initListData(false);
   }
 
   @override
@@ -52,14 +78,38 @@ class _ProjectListViewState extends State<ProjectListView>
         child: CupertinoActivityIndicator(),
       );
     }
-    return Container(
-      child: Center(
+    return RefreshIndicator(
+      onRefresh: _pullToRefresh,
+      child: Container(
         child: ListView.builder(
+          controller: _scrollController,
           itemCount: _projectList.length,
           itemBuilder: (BuildContext context, int index) {
+            if (index == _projectList.length - 1 && _isLoading) {
+              return _buildLoadMore();
+            }
             return ProjectItemView(article: _projectList[index]);
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoadMore() {
+    return Container(
+      width: Screen.width,
+      height: duSetH(140),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          CupertinoActivityIndicator(),
+          SizedBox(width: 6),
+          Text(
+            '加载更多',
+            style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
+          )
+        ],
       ),
     );
   }
