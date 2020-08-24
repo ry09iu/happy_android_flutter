@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:happy_android_flutter/api/project.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/project_tree.dart';
+import 'package:happy_android_flutter/pages/project/project_list.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -14,16 +15,6 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   List<ProjectTreeModel> _proTreeList;
   TabController _tabController;
-  final List<String> _tabValues = [
-    '语文',
-    '英语',
-    '化学',
-    '物理',
-    '数学',
-    '生物',
-    '体育',
-    '经济',
-  ];
 
   @override
   void initState() {
@@ -83,11 +74,7 @@ class _ProjectPageState extends State<ProjectPage> {
       ),
       body: TabBarView(
         controller: _tabController,
-        children: _proTreeList.map((e) {
-          return Center(
-            child: Text(e.name),
-          );
-        }).toList(),
+        children: _proTreeList.map((e) => ProjectListView(cid: e.id)).toList(),
       ),
     );
   }

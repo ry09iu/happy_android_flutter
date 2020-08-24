@@ -14,5 +14,5 @@ class Api {
   static const String PROJECT_TREE = "/project/tree/json";
 
   // 项目列表数据 https://www.wanandroid.com/project/list/1/json?cid=294
-  static const String PROJECT_LIST= "/project/list";
+  static const String PROJECT_LIST = "/project/list/";
 }
