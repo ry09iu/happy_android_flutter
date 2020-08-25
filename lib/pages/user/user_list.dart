@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
-import 'package:happy_android_flutter/constant/routes.dart';
-import 'package:happy_android_flutter/pages/user/about.dart';
-import 'package:happy_android_flutter/pages/user/coin.dart';
-import 'package:happy_android_flutter/pages/user/mark.dart';
-import 'package:happy_android_flutter/pages/user/settings.dart';
+import 'package:happy_android_flutter/constant/app_colors.dart';
+import 'package:happy_android_flutter/pages/user/child/about_page.dart';
+import 'package:happy_android_flutter/pages/user/child/coin_page.dart';
+import 'package:happy_android_flutter/pages/user/child/favourite_page.dart';
+import 'package:happy_android_flutter/pages/user/child/settings_page.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
 class UserListView extends StatefulWidget {
@@ -17,7 +17,7 @@ class UserListView extends StatefulWidget {
 class _UserListViewState extends State<UserListView> {
   var _userList = [
     {'img': 'assets/images/point.png', 'label': '我的积分', 'key': 'coin'},
-    {'img': 'assets/images/mark.png', 'label': '我的收藏', 'key': 'mark'},
+    {'img': 'assets/images/favourite.png', 'label': '我的收藏', 'key': 'favourite'},
     {'img': 'assets/images/settings.png', 'label': '设置', 'key': 'settings'},
     {'img': 'assets/images/about.png', 'label': '关于 APP', 'key': 'about'},
   ];
@@ -31,27 +31,40 @@ class _UserListViewState extends State<UserListView> {
     ));
   }
 
-  /*Widget _buildListItem(var item) {
+  Widget _buildListItem(var item) {
     return Container(
       padding: EdgeInsets.only(left: duSetW(40), right: duSetW(40)),
-      child: ListTile(
-        leading: Container(
-          height: duSetW(68),
-          width: duSetW(68),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  image: AssetImage(item['img']), fit: BoxFit.fill)),
-        ),
-        title: Text(item['label']),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          size: duSetSp(40),
+      child: ListTileTheme(
+        dense: true,
+        child: ListTile(
+          onTap: () {
+            _itemTap(item['key']);
+          },
+          leading: Container(
+            height: duSetW(66),
+            width: duSetW(66),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: AssetImage(item['img']), fit: BoxFit.fill)),
+          ),
+          title: Text(
+            item['label'],
+            style: TextStyle(
+              fontSize: duSetSp(44),
+            ),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            size: duSetSp(40),
+            color: Color(0xFFAAAAAA),
+          ),
         ),
       ),
     );
-  }*/
-  Widget _buildListItem(var item) {
+  }
+
+  /*Widget _buildListItem(var item) {
     return GestureDetector(
       onTap: () {
         _itemTap(item['key']);
@@ -87,21 +100,21 @@ class _UserListViewState extends State<UserListView> {
         ),
       ),
     );
-  }
+  }*/
 
   void _itemTap(String key) {
     switch (key) {
       case 'coin':
-        AppNavigator.push(context, CoinPage());
+        AppNavigator.push(context: context, scene: CoinPage());
         break;
-      case 'mark':
-        AppNavigator.push(context, MarkPage());
+      case 'favourite':
+        AppNavigator.push(context: context, scene: FavouritePage());
         break;
       case 'settings':
-        AppNavigator.push(context, SettingsPage());
+        AppNavigator.push(context: context, scene: SettingsPage());
         break;
       case 'about':
-        AppNavigator.push(context, AboutPage());
+        AppNavigator.push(context: context, scene: AboutPage());
         break;
 
       default:

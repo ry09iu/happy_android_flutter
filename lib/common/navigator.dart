@@ -8,10 +8,14 @@ class AppNavigator {
     }));
   }
 
-  static push(BuildContext context, Widget scene) {
+  static push(
+      {@required BuildContext context,
+      Widget scene,
+      bool isFullScreen = false}) {
     Navigator.push(
       context,
       CupertinoPageRoute(
+        fullscreenDialog: isFullScreen,
         builder: (BuildContext context) => scene,
       ),
     );
