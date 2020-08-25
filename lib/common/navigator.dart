@@ -7,4 +7,13 @@ class AppNavigator {
       return CustomWebView(url: url, title: title);
     }));
   }
+
+  static push(BuildContext context, Widget scene) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (BuildContext context) => scene,
+      ),
+    );
+  }
 }

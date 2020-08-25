@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/article_list.dart';
-import 'package:happy_android_flutter/model/project_list.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/util/time.dart';
 
