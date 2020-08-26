@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/api/user.dart';
+import 'package:happy_android_flutter/common/data_tool.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
+import 'package:happy_android_flutter/model/user_login.dart';
 import 'package:happy_android_flutter/pages/user/user_register_page.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
+import 'package:happy_android_flutter/widget/toast.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -66,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoginForm() {
     return Positioned(
       width: Screen.width,
-      height: duSetH(960),
+      /*height: duSetH(960),*/
       top: duSetW(200),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
@@ -87,17 +91,19 @@ class _LoginPageState extends State<LoginPage> {
             inputTextEdit(
                 controller: _usernameController,
                 keyboardType: TextInputType.name,
-                hintText: '用户名'),
+                hintText: '用户名',
+                marginTop: 50),
             inputTextEdit(
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
                 prefixIcon: Icons.lock,
                 hintText: '密码',
                 isPassword: true,
-                marginTop: 20),
-            SizedBox(height: duSetH(128)),
+                marginTop: 22),
+            SizedBox(height: duSetH(100)),
             _buildLoginButton(),
             _buildFooter(),
+            SizedBox(height: duSetH(40)),
           ],
         ),
       ),
@@ -107,17 +113,39 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoginButton() {
     return SizedBox(
       width: Screen.width,
-      height: duSetH(128),
+      height: duSetH(118),
       child: FlatButton(
-        child: Text('登录', style: TextStyle(letterSpacing: duSetW(10))),
+        child: Text('登录',
+            style: TextStyle(letterSpacing: duSetW(10), fontSize: duSetW(44))),
         color: AppColor.primaryColor,
         shape: StadiumBorder(
           side: BorderSide(color: AppColor.primaryColor),
         ),
         textColor: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          _userLoginSubmit();
+        },
       ),
     );
+  }
+
+  Future<void> _userLoginSubmit() async {
+    Map<String, dynamic> params = Map();
+    params['username'] = _usernameController.value.text;
+    params['password'] = _passwordController.value.text;
+
+    UserLoginResponseModel userProfile =
+        await ApiUser.userLogin(context: context, params: params);
+    print(userProfile);
+    print(userProfile.username);
+    if (userProfile == null) {
+      showToast(msg: '登录失败');
+    } else {
+      await dataTools.setLoginState(true);
+      await dataTools.setLoginUserName(userProfile.username);
+      showToast(msg: '登录成功');
+      Navigator.of(context).pop();
+    }
   }
 
   Widget _buildHeader() {

@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/api/user.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
+import 'package:happy_android_flutter/model/user_login.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
@@ -62,7 +64,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
   Widget _buildLoginForm() {
     return Positioned(
       width: Screen.width,
-      height: duSetH(1044),
+      /*height: duSetH(1044),*/
       top: duSetW(200),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
@@ -83,23 +85,25 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
             inputTextEdit(
                 controller: _usernameController,
                 keyboardType: TextInputType.name,
-                hintText: '用户名'),
+                hintText: '用户名',
+                marginTop: 50),
             inputTextEdit(
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
                 prefixIcon: Icons.lock,
                 hintText: '密码',
                 isPassword: true,
-                marginTop: 20),
+                marginTop: 22),
             inputTextEdit(
                 controller: _rePasswordController,
                 keyboardType: TextInputType.visiblePassword,
                 prefixIcon: Icons.lock,
                 hintText: '确认密码',
                 isPassword: true,
-                marginTop: 20),
-            SizedBox(height: duSetH(128)),
+                marginTop: 22),
+            SizedBox(height: duSetH(100)),
             _buildLoginButton(),
+            SizedBox(height: duSetH(40)),
             /*_buildFooter(),*/
           ],
         ),
@@ -121,7 +125,9 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
           side: BorderSide(color: AppColor.primaryColor),
         ),
         textColor: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          _userRegisterSubmit();
+        },
       ),
     );
   }
@@ -143,5 +149,17 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
         ],
       ),
     );
+  }
+
+
+  Future<void> _userRegisterSubmit() async {
+    Map<String, dynamic> params = Map();
+    params['username'] = _usernameController.value.text;
+    params['password'] = _passwordController.value.text;
+    params['repassword'] = _rePasswordController.value.text;
+
+    UserLoginResponseModel userProfile =
+    await ApiUser.userLogin(context: context, params: params);
+    print(userProfile);
   }
 }

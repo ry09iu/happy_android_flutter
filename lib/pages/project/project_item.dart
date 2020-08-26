@@ -44,7 +44,7 @@ class ProjectItemView extends StatelessWidget {
     return Container(
       alignment: Alignment.bottomLeft,
       child: Text(
-        article.superChapterName + ' | ' + article.chapterName,
+        article.superChapterName.replaceAll('amp;', '') + ' | ' + article.chapterName.replaceAll('amp;', ''),
         style: TextStyle(
           color: Color(0xFF212121),
           fontSize: duSetSp(30),

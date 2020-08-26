@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/constant/api.dart';
@@ -265,6 +267,7 @@ class HttpUtil {
     Options options,
   }) async {
     Options requestOptions = options ?? Options();
+    requestOptions.contentType = 'application/x-www-form-urlencoded';
     requestOptions = requestOptions.merge(extra: {
       "context": context,
     });

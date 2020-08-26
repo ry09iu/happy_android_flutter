@@ -23,4 +23,13 @@ class Api {
   // 公众号 ID：拼接在 url 中，eg:408
   // 公众号页码：拼接在 url 中，eg:1
   static const String WX_ARTICLE_LIST = "/wxarticle/list/";
+
+  // 登陆
+  static const String USER_LOGIN = "/user/login";
+
+  // 注册
+  static const String USER_REGISTER = "/user/register";
+
+  // 退出
+  static const String USER_LOGOUT = "/user/logout/json";
 }
