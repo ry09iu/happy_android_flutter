@@ -1,21 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
-import 'package:happy_android_flutter/pages/user/user_register_page.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
 
-class LoginPage extends StatefulWidget {
+class UserRegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _UserRegisterPageState createState() => _UserRegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _UserRegisterPageState extends State<UserRegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _rePasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +52,6 @@ class _LoginPageState extends State<LoginPage> {
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     print('去注册页面');
-                    AppNavigator.push(
-                        context: context, scene: UserRegisterPage());
                   },
                 style: TextStyle(
                     color: AppColor.primaryColor, fontSize: duSetSp(38)))
@@ -66,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoginForm() {
     return Positioned(
       width: Screen.width,
-      height: duSetH(960),
+      height: duSetH(1044),
       top: duSetW(200),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
@@ -95,9 +91,16 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: '密码',
                 isPassword: true,
                 marginTop: 20),
+            inputTextEdit(
+                controller: _rePasswordController,
+                keyboardType: TextInputType.visiblePassword,
+                prefixIcon: Icons.lock,
+                hintText: '确认密码',
+                isPassword: true,
+                marginTop: 20),
             SizedBox(height: duSetH(128)),
             _buildLoginButton(),
-            _buildFooter(),
+            /*_buildFooter(),*/
           ],
         ),
       ),
@@ -109,7 +112,10 @@ class _LoginPageState extends State<LoginPage> {
       width: Screen.width,
       height: duSetH(128),
       child: FlatButton(
-        child: Text('登录', style: TextStyle(letterSpacing: duSetW(10))),
+        child: Text(
+          '注册',
+          style: TextStyle(letterSpacing: duSetW(10)),
+        ),
         color: AppColor.primaryColor,
         shape: StadiumBorder(
           side: BorderSide(color: AppColor.primaryColor),
