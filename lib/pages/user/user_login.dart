@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
             clipper: BottomClipper(),
             child: Container(
               color: AppColor.primaryColor,
-              height: duSetH(600),
+              height: duSetH(612),
             ),
           ),
           _buildHeader(),
@@ -63,12 +63,13 @@ class _LoginPageState extends State<LoginPage> {
     return Positioned(
       width: Screen.width,
       height: duSetH(960),
-      top: duSetW(260),
+      top: duSetW(200),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(duSetW(10)))),
             color: Colors.white,
             shadows: [
               BoxShadow(
@@ -123,10 +124,10 @@ class _LoginPageState extends State<LoginPage> {
               child: Hero(
             tag: 'loginLogo',
             child: Image.asset(
-              'assets/images/login_avator.png',
-              width: duSetW(280),
-              height: duSetW(280),
-              fit: BoxFit.cover,
+              'assets/images/logo_transp.png',
+              width: duSetW(320),
+              height: duSetW(220),
+              fit: BoxFit.fitWidth,
             ),
           )),
         ],

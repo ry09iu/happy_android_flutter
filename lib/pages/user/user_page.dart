@@ -60,14 +60,14 @@ class UserPage extends StatelessWidget {
                 height: duSetW(200),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xFFE5F1FF),
+                  color: Color(0xFFFFFFFF),
                 ),
                 child: Center(
                   child: Image.asset(
-                    'assets/images/default_avatar.png',
-                    fit: BoxFit.cover,
-                    width: duSetW(160),
-                    height: duSetW(160),
+                    'assets/images/def_avator.png',
+                    fit: BoxFit.fitWidth,
+                    width: duSetW(140),
+                    height: duSetW(100),
                   ),
                 ),
               ),
