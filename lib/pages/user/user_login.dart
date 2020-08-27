@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          TopClipperView(height: 612),
+          topClipperView(height: 612),
           _buildHeader(),
           _buildLoginForm(),
         ],

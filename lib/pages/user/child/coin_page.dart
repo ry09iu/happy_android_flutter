@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/api/user.dart';
+import 'package:happy_android_flutter/widget/top_clipper.dart';
 
 class CoinPage extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class CoinPage extends StatefulWidget {
 
 class _CoinPageState extends State<CoinPage> {
   int _page = 1;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -27,8 +29,16 @@ class _CoinPageState extends State<CoinPage> {
         title: Text('我的积分'),
         elevation: 0,
       ),
-      body: Center(
-        child: Text('我的积分页面'),
+      body: Column(
+        children: [
+          Container(
+            child: Stack(
+              children: [
+                topClipperView(height: 300),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

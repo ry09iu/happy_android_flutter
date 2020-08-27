@@ -78,7 +78,7 @@ class _UserPageState extends State<UserPage> {
             ),
             Stack(
               children: [
-                TopClipperView(),
+                topClipperView(),
                 _buildLogout(),
                 _buildHeader(context),
               ],

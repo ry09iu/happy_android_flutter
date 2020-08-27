@@ -3,7 +3,7 @@ import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 
-Widget TopClipperView({
+Widget topClipperView({
   double height = 500,
 }) {
   return Container(
