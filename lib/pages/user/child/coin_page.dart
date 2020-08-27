@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/api/user.dart';
+import 'package:happy_android_flutter/model/user_coin_info.dart';
 import 'package:happy_android_flutter/model/user_coin_list.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/util/time.dart';
@@ -18,6 +19,7 @@ class _CoinPageState extends State<CoinPage> {
   bool _isLoading = false;
   String _loadingText = '加载更多';
   List<UserCoinListModel> _coinList;
+  UserCoinInfoModel _coinInfo;
   ScrollController _scrollController;
 
   @override
@@ -42,7 +44,9 @@ class _CoinPageState extends State<CoinPage> {
 
   Future<void> initListData(bool loadMore) async {
     var list = await ApiUser.userCoinList(context: context, page: _page);
+    var info = await ApiUser.userCoinInfo(context: context);
     print(list);
+    print(info);
     setState(() {
       if (loadMore && list.length > 0) {
         _isLoading = false;
@@ -51,7 +55,8 @@ class _CoinPageState extends State<CoinPage> {
         _loadingText = '没有更多';
       } else {
         _coinList = list;
-        showToast(msg: '刷新完毕');
+        _coinInfo = info;
+        showToast(msg: '加载完毕');
       }
     });
   }
@@ -92,7 +97,9 @@ class _CoinPageState extends State<CoinPage> {
                           height: duSetH(320 - Screen.navigationBarHeight),
                           child: Center(
                             child: Text(
-                              '66',
+                              _coinInfo != null
+                                  ? _coinInfo.coinCount.toString()
+                                  : '加载中',
                               style: TextStyle(
                                 fontSize: duSetSp(124),
                                 fontWeight: FontWeight.w400,
@@ -104,35 +111,39 @@ class _CoinPageState extends State<CoinPage> {
                       ],
                     ),
                   ),
-                  Expanded(
-                      child: RefreshIndicator(
-                    onRefresh: _pullToRefresh,
-                    child: ListView.separated(
-                        controller: _scrollController,
-                        itemCount: _coinList.length + 1,
-                        separatorBuilder: (BuildContext context, int index) {
-                          return Divider();
-                        },
-                        itemBuilder: (BuildContext context, int index) {
-                          if (index == _coinList.length - 1 && _isLoading) {
-                            return refreshLoadMore(text: _loadingText);
-                          }
-                          if (index == _coinList.length) {
-                            return refreshLoadMore(text: '没有更多');
-                          }
-                          return _buildCoinListItem(_coinList[index]);
-                        }),
-                  ))
+                  _buildCoinList(),
                 ],
               ),
             ),
     );
   }
 
+  Expanded _buildCoinList() {
+    return Expanded(
+        child: RefreshIndicator(
+      onRefresh: _pullToRefresh,
+      child: ListView.separated(
+          controller: _scrollController,
+          itemCount: _coinList.length + 1,
+          separatorBuilder: (BuildContext context, int index) {
+            return Divider();
+          },
+          itemBuilder: (BuildContext context, int index) {
+            if (index == _coinList.length - 1 && _isLoading) {
+              return refreshLoadMore(text: _loadingText);
+            }
+            if (index == _coinList.length) {
+              return refreshLoadMore(text: '没有更多');
+            }
+            return _buildCoinListItem(_coinList[index]);
+          }),
+    ));
+  }
+
   Widget _buildCoinListItem(UserCoinListModel coinData) {
     return Container(
         padding:
-            EdgeInsets.symmetric(horizontal: duSetW(60), vertical: duSetH(30)),
+            EdgeInsets.symmetric(horizontal: duSetW(60), vertical: duSetH(20)),
         child: Row(
           children: [
             Column(

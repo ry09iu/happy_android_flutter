@@ -35,4 +35,7 @@ class Api {
 
   // 个人积分列表
   static const String USER_COIN_LIST = "/lg/coin/list/";
+
+  // 个人积分信息
+  static const String USER_COIN_INFO = "/lg/coin/userinfo/json";
 }
