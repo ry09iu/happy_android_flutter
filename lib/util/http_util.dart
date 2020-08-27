@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/common/data_tool.dart';
 import 'package:happy_android_flutter/constant/api.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
 
@@ -252,6 +253,11 @@ class HttpUtil {
       requestOptions = requestOptions.merge(headers: _authorization);
     }
 
+    String cookie = await dataTools.getUserCookie();
+    if (cookie != null || cookie != '') {
+      requestOptions.headers['Cookie'] = cookie;
+    }
+
     var response = await dio.get(path,
         queryParameters: params,
         options: requestOptions,
@@ -275,6 +281,12 @@ class HttpUtil {
     if (_authorization != null) {
       requestOptions = requestOptions.merge(headers: _authorization);
     }
+
+    String cookie = await dataTools.getUserCookie();
+    if (cookie != null || cookie != '') {
+      requestOptions.headers['Cookie'] = cookie;
+    }
+
     var response = await dio.post(path,
         data: params, options: requestOptions, cancelToken: cancelToken);
     return response.data;

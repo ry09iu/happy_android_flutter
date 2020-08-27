@@ -177,12 +177,8 @@ class _UserPageState extends State<UserPage> {
 
   Future<void> logout() async {
     bool result = await ApiUser.userLogout(context: context);
-    print(result);
     if (result) {
       showToast(msg: '退出成功');
-      dataTools.setLoginState(false);
-      dataTools.clearUserName();
-      dataTools.clearUserID();
 
       setState(() {
         userName = '';

@@ -14,16 +14,22 @@ class DataTools {
     return await spUtil.getBool(SharedPreferencesKeys.LOGIN_STATE_KEY);
   }
 
-  //设置登录用户名
+  ///设置登录用户名
   Future<bool> setLoginUserName(String username) async {
     return await spUtil.putString(
         SharedPreferencesKeys.LOGIN_USERNAME_KEY, username);
   }
 
-  //设置用户名ID
+  ///设置用户名ID
   Future<bool> setUserID(int id) async {
     return await spUtil.putString(
         SharedPreferencesKeys.LOGIN_USER_ID, id.toString());
+  }
+
+  ///设置用户 Cookie
+  Future<bool> setUserCookie(String cookie) async {
+    return await spUtil.putString(
+        SharedPreferencesKeys.LOGIN_USER_COOKIE, cookie);
   }
 
   ///清除用户名信息
@@ -36,13 +42,23 @@ class DataTools {
     return await spUtil.remove(SharedPreferencesKeys.LOGIN_USER_ID);
   }
 
-  //获取登录用户名
+  ///清除用户 Cookie
+  Future<bool> clearUserCookie() async {
+    return await spUtil.remove(SharedPreferencesKeys.LOGIN_USER_COOKIE);
+  }
+
+  ///获取登录用户名
   Future<String> getUserName() async {
     return await spUtil.getString(SharedPreferencesKeys.LOGIN_USERNAME_KEY);
   }
 
-  //获取用户ID
+  ///获取用户ID
   Future<String> getUserID() async {
     return await spUtil.getString(SharedPreferencesKeys.LOGIN_USER_ID);
+  }
+
+  ///获取用户 Cookie
+  Future<String> getUserCookie() async {
+    return await spUtil.getString(SharedPreferencesKeys.LOGIN_USER_COOKIE);
   }
 }

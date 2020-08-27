@@ -163,6 +163,10 @@ class _LoginPageState extends State<LoginPage> {
       await dataTools.setLoginState(true);
       await dataTools.setLoginUserName(userProfile.username);
       await dataTools.setUserID(userProfile.id);
+      await dataTools.setUserCookie("loginUserName=" +
+          userProfile.username +
+          ";loginUserPassword=" +
+          params['password']);
 
       switchLoading();
       //发送事件

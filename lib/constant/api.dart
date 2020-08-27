@@ -32,4 +32,7 @@ class Api {
 
   // 退出
   static const String USER_LOGOUT = "/user/logout/json";
+
+  // 个人积分列表
+  static const String USER_COIN_LIST = "/lg/coin/list/";
 }
