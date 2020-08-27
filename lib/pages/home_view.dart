@@ -1,5 +1,7 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:happy_android_flutter/common/application.dart';
 import 'package:happy_android_flutter/pages/home/home_page.dart';
 import 'package:happy_android_flutter/pages/project/project_page.dart';
 import 'package:happy_android_flutter/pages/user/user_page.dart';
@@ -24,6 +26,8 @@ class _HomeViewState extends State<HomeView> {
       ..add(WxArticlePage())
       ..add(UserPage());
     super.initState();
+    Application.eventBus = EventBus();
+    Application.init();
   }
 
   onTap(index) {

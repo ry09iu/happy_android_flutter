@@ -1,13 +1,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/common/application.dart';
+import 'package:happy_android_flutter/common/data_tool.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
+import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/pages/user/user_list.dart';
 import 'package:happy_android_flutter/pages/user/user_login.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 
-class UserPage extends StatelessWidget {
+class UserPage extends StatefulWidget {
+  @override
+  _UserPageState createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  String userName;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserName();
+    //监听事件总线上数据变化
+    Application.eventBus.on<LoginEvent>().listen((event) {
+      if (mounted) {
+        setState(() {
+          userName = event.username;
+        });
+      }
+    });
+  }
+
+  //获取用户名
+  void getUserName() async {
+    await dataTools.getUserName().then((value) {
+      setState(() {
+        print("userName = $userName");
+        userName = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +115,7 @@ class UserPage extends StatelessWidget {
                   context: context, scene: LoginPage(), isFullScreen: true);
             },
             child: Text(
-              '点我登录',
+              (userName == null || userName == "") ? "点我登录" : userName,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,

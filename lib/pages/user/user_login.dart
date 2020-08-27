@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/api/user.dart';
+import 'package:happy_android_flutter/common/application.dart';
 import 'package:happy_android_flutter/common/data_tool.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/user_login.dart';
+import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/pages/user/user_register_page.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
@@ -143,6 +145,8 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       await dataTools.setLoginState(true);
       await dataTools.setLoginUserName(userProfile.username);
+      //发送事件
+      Application.eventBus.fire(LoginEvent(userProfile.username));
       showToast(msg: '登录成功');
       Navigator.of(context).pop();
     }
