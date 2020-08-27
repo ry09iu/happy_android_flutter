@@ -45,8 +45,8 @@ class _CoinPageState extends State<CoinPage> {
   Future<void> initListData(bool loadMore) async {
     var list = await ApiUser.userCoinList(context: context, page: _page);
     var info = await ApiUser.userCoinInfo(context: context);
-    print(list);
-    print(info);
+/*    print(list);
+    print(info);*/
     setState(() {
       if (loadMore && list.length > 0) {
         _isLoading = false;

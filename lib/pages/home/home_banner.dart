@@ -28,7 +28,7 @@ class HomeBannerView extends StatelessWidget {
             builder: (BuildContext context) {
               return GestureDetector(
                 onTap: () {
-                  AppNavigator.pushWeb(context, banner.url, banner.title);
+                  AppNavigator.pushWeb(context, banner.url, banner.title, banner.id);
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),

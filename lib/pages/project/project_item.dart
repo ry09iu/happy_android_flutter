@@ -27,7 +27,7 @@ class ProjectItemView extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          AppNavigator.pushWeb(context, article.link, article.title);
+          AppNavigator.pushWeb(context, article.link, article.title, article.id);
         },
         child: Column(
           children: <Widget>[

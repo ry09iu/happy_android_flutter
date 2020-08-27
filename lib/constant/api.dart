@@ -38,4 +38,7 @@ class Api {
 
   // 个人积分信息
   static const String USER_COIN_INFO = "/lg/coin/userinfo/json";
+
+  // 收藏站内文章
+  static const String COLLECT_ARTICLE = "/lg/collect/";
 }

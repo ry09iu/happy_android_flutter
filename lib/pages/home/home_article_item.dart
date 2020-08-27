@@ -15,7 +15,7 @@ class HomeArticleItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.pushWeb(context, article.link, article.title);
+        AppNavigator.pushWeb(context, article.link, article.title, article.id);
       },
       child: Container(
         padding: EdgeInsets.only(left: duSetW(44), right: duSetW(44)),

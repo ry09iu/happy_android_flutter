@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:happy_android_flutter/widget/custom_web_view.dart';
 
 class AppNavigator {
-  static pushWeb(BuildContext context, String url, String title) {
+  static pushWeb(BuildContext context, String url, String title, int id) {
     Navigator.push(context, CupertinoPageRoute(builder: (context) {
-      return CustomWebView(url: url, title: title);
+      return CustomWebView(url: url, title: title, id: id);
     }));
   }
 

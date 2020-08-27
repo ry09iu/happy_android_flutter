@@ -64,4 +64,18 @@ class ApiUser {
         .get(Api.USER_COIN_INFO, context: context, params: params);
     return UserCoinInfoModel.fromJson(response['data']);
   }
+
+  static Future<bool> collectArticle(
+      {@required BuildContext context,
+      int id,
+      Map<String, dynamic> params}) async {
+    var response = await HttpUtil().post(
+        Api.COLLECT_ARTICLE + id.toString() + '/json',
+        context: context,
+        params: params);
+    if (response['data'] == null) {
+      return true;
+    }
+    return false;
+  }
 }
