@@ -11,6 +11,7 @@ import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/button_progress_indicator.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
+import 'package:happy_android_flutter/widget/top_clipper.dart';
 
 class UserRegisterPage extends StatefulWidget {
   @override
@@ -32,39 +33,12 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          ClipPath(
-            clipper: BottomClipper(),
-            child: Container(
-              color: AppColor.primaryColor,
-              height: duSetH(612),
-            ),
-          ),
+          TopClipperView(height: 612),
           _buildHeader(),
           _buildLoginForm(),
         ],
       ),
     );
-  }
-
-  Widget _buildFooter() {
-    return Container(
-        margin: EdgeInsets.only(top: duSetH(44)),
-        child: RichText(
-          text: TextSpan(children: <InlineSpan>[
-            TextSpan(
-                text: '没有账号？',
-                style:
-                    TextStyle(color: Color(0xFF333333), fontSize: duSetSp(38))),
-            TextSpan(
-                text: '去注册',
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    print('去注册页面');
-                  },
-                style: TextStyle(
-                    color: AppColor.primaryColor, fontSize: duSetSp(38)))
-          ]),
-        ));
   }
 
   Widget _buildLoginForm() {
@@ -110,7 +84,6 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
             SizedBox(height: duSetH(100)),
             _buildLoginButton(),
             SizedBox(height: duSetH(40)),
-            /*_buildFooter(),*/
           ],
         ),
       ),

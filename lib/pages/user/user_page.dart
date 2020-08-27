@@ -11,6 +11,7 @@ import 'package:happy_android_flutter/pages/user/user_login.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
+import 'package:happy_android_flutter/widget/top_clipper.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -77,13 +78,7 @@ class _UserPageState extends State<UserPage> {
             ),
             Stack(
               children: [
-                ClipPath(
-                  clipper: BottomClipper(),
-                  child: Container(
-                    color: AppColor.primaryColor,
-                    height: duSetH(500),
-                  ),
-                ),
+                TopClipperView(),
                 _buildLogout(),
                 _buildHeader(context),
               ],

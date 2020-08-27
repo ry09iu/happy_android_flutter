@@ -14,6 +14,7 @@ import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/button_progress_indicator.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
+import 'package:happy_android_flutter/widget/top_clipper.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -35,13 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          ClipPath(
-            clipper: BottomClipper(),
-            child: Container(
-              color: AppColor.primaryColor,
-              height: duSetH(612),
-            ),
-          ),
+          TopClipperView(height: 612),
           _buildHeader(),
           _buildLoginForm(),
         ],
