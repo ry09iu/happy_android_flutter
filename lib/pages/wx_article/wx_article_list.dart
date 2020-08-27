@@ -50,7 +50,7 @@ class _WxArticleListViewState extends State<WxArticleListView>
   Future<void> initListData(bool loadMore) async {
     var list = await ApiWxArticle.wxArticle(
         context: context, id: widget.id, page: _page);
-    print(list);
+    /*print(list);*/
     setState(() {
       if (loadMore && list.length > 0) {
         _isLoading = false;

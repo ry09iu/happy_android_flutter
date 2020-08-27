@@ -1,5 +1,6 @@
 class LoginEvent {
   String username;
+  String id;
 
-  LoginEvent(this.username);
+  LoginEvent(this.username, this.id);
 }

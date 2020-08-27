@@ -1,11 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/api/user.dart';
+import 'package:happy_android_flutter/common/application.dart';
+import 'package:happy_android_flutter/common/data_tool.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/user_login.dart';
+import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
+import 'package:happy_android_flutter/widget/toast.dart';
 
 class UserRegisterPage extends StatefulWidget {
   @override
@@ -151,15 +155,42 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
     );
   }
 
-
   Future<void> _userRegisterSubmit() async {
+    if (!validInput()) {
+      return;
+    }
     Map<String, dynamic> params = Map();
     params['username'] = _usernameController.value.text;
     params['password'] = _passwordController.value.text;
     params['repassword'] = _rePasswordController.value.text;
 
+    //收起软键盘
+    FocusScope.of(context).requestFocus(FocusNode());
     UserLoginResponseModel userProfile =
-    await ApiUser.userLogin(context: context, params: params);
+        await ApiUser.userRegister(context: context, params: params);
     print(userProfile);
+    if (userProfile == null) {
+      showToast(msg: '登录失败');
+    } else {
+      await dataTools.setLoginState(true);
+      await dataTools.setLoginUserName(userProfile.username);
+      //发送事件
+      Application.eventBus
+          .fire(LoginEvent(userProfile.username, userProfile.id.toString()));
+      showToast(msg: '注册成功');
+      Navigator.of(context).pop();
+    }
+  }
+
+  bool validInput() {
+    if (_usernameController.text == null || _usernameController.text == "") {
+      showToast(msg: '用户名不能为空');
+      return false;
+    }
+    if (_passwordController.text == null || _passwordController.text == "") {
+      showToast(msg: '密码不能为空');
+      return false;
+    }
+    return true;
   }
 }

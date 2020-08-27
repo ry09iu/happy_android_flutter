@@ -17,17 +17,20 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   String userName;
+  String userId;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getUserName();
+    getUserID();
     //监听事件总线上数据变化
     Application.eventBus.on<LoginEvent>().listen((event) {
       if (mounted) {
         setState(() {
           userName = event.username;
+          userId = event.id;
         });
       }
     });
@@ -39,6 +42,15 @@ class _UserPageState extends State<UserPage> {
       setState(() {
         print("userName = $userName");
         userName = value;
+      });
+    });
+  } //获取用户ID
+
+  void getUserID() async {
+    await dataTools.getUserID().then((value) {
+      setState(() {
+        print("userId = $userId");
+        userId = value;
       });
     });
   }
@@ -85,8 +97,7 @@ class _UserPageState extends State<UserPage> {
         children: [
           InkWell(
             onTap: () {
-              AppNavigator.push(
-                  context: context, scene: LoginPage(), isFullScreen: true);
+              showLoginPage();
             },
             child: Hero(
               tag: 'loginLogo',
@@ -110,21 +121,40 @@ class _UserPageState extends State<UserPage> {
           ),
           SizedBox(height: duSetH(40)),
           GestureDetector(
-            onTap: () {
-              AppNavigator.push(
-                  context: context, scene: LoginPage(), isFullScreen: true);
-            },
-            child: Text(
-              (userName == null || userName == "") ? "点我登录" : userName,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: duSetSp(50),
-              ),
-            ),
-          )
+              onTap: () {
+                showLoginPage();
+              },
+              child: Column(
+                children: [
+                  Text(
+                    (userName == null || userName == "") ? "点我登录" : userName,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: duSetSp(50),
+                    ),
+                  ),
+                  SizedBox(height: duSetH(10)),
+                  (userId == null || userId == "")
+                      ? Container()
+                      : Text(
+                          "ID：$userId",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: duSetSp(36),
+                          ),
+                        ),
+                ],
+              ))
         ],
       ),
     );
+  }
+
+  void showLoginPage() {
+    if (userName == null || userName == "") {
+      AppNavigator.push(
+          context: context, scene: LoginPage(), isFullScreen: true);
+    }
   }
 }

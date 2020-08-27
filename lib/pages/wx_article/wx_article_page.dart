@@ -27,7 +27,7 @@ class _WxArticlePageState extends State<WxArticlePage> {
     var chapters = await ApiWxArticle.wxArticleChapters(context: context);
     _tabController =
         TabController(length: chapters.length, vsync: ScrollableState());
-    print(chapters);
+    /*print(chapters);*/
     setState(() {
       _wxArticleChapter = chapters;
     });

@@ -11,6 +11,7 @@ import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/pages/user/user_register_page.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
+import 'package:happy_android_flutter/widget/button_progress_indicator.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
 
@@ -20,6 +21,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isLoading = false;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -117,8 +119,11 @@ class _LoginPageState extends State<LoginPage> {
       width: Screen.width,
       height: duSetH(118),
       child: FlatButton(
-        child: Text('登录',
-            style: TextStyle(letterSpacing: duSetW(10), fontSize: duSetW(44))),
+        child: isLoading
+            ? ButtonProgressIndicator()
+            : Text('登录',
+                style:
+                    TextStyle(letterSpacing: duSetW(10), fontSize: duSetW(44))),
         color: AppColor.primaryColor,
         shape: StadiumBorder(
           side: BorderSide(color: AppColor.primaryColor),
@@ -132,24 +137,53 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _userLoginSubmit() async {
+    if (!validInput()) {
+      return;
+    }
+
+    switchLoading();
+
     Map<String, dynamic> params = Map();
     params['username'] = _usernameController.value.text;
     params['password'] = _passwordController.value.text;
 
+    //收起软键盘
+    FocusScope.of(context).requestFocus(FocusNode());
     UserLoginResponseModel userProfile =
         await ApiUser.userLogin(context: context, params: params);
-    print(userProfile);
-    print(userProfile.username);
+    /*print(userProfile);*/
     if (userProfile == null) {
       showToast(msg: '登录失败');
     } else {
       await dataTools.setLoginState(true);
       await dataTools.setLoginUserName(userProfile.username);
+      await dataTools.setUserID(userProfile.id);
+
+      switchLoading();
       //发送事件
-      Application.eventBus.fire(LoginEvent(userProfile.username));
+      Application.eventBus
+          .fire(LoginEvent(userProfile.username, userProfile.id.toString()));
       showToast(msg: '登录成功');
       Navigator.of(context).pop();
     }
+  }
+
+  void switchLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  bool validInput() {
+    if (_usernameController.text == null || _usernameController.text == "") {
+      showToast(msg: '用户名不能为空');
+      return false;
+    }
+    if (_passwordController.text == null || _passwordController.text == "") {
+      showToast(msg: '密码不能为空');
+      return false;
+    }
+    return true;
   }
 
   Widget _buildHeader() {
