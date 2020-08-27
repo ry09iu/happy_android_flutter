@@ -41,4 +41,10 @@ class Api {
 
   // 收藏站内文章
   static const String COLLECT_ARTICLE = "/lg/collect/";
+
+  // 取消收藏文章（从文章列表）
+  static const String UNCOLLECT_ARTICLE = "/lg/uncollect_originId/";
+
+  // 取消收藏文章（从我的收藏列表）
+  static const String UNCOLLECT_ARTICLES = "/lg/uncollect/";
 }

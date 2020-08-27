@@ -78,4 +78,18 @@ class ApiUser {
     }
     return false;
   }
+
+  static Future<bool> unCollectArticle(
+      {@required BuildContext context,
+      int id,
+      Map<String, dynamic> params}) async {
+    var response = await HttpUtil().post(
+        Api.UNCOLLECT_ARTICLE + id.toString() + '/json',
+        context: context,
+        params: params);
+    if (response['data'] == null) {
+      return true;
+    }
+    return false;
+  }
 }

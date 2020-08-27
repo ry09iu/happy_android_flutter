@@ -26,7 +26,7 @@ class WxArticleItemView extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          AppNavigator.pushWeb(context, article.link, article.title, article.id);
+          AppNavigator.pushWeb(context, article.link, article.title, article.id, article.collect);
         },
         child: Column(
           children: <Widget>[

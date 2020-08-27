@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:happy_android_flutter/api/user.dart';
+import 'package:happy_android_flutter/common/application.dart';
+import 'package:happy_android_flutter/common/data_tool.dart';
+import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
 import 'package:share/share.dart';
@@ -10,8 +13,9 @@ class CustomWebView extends StatefulWidget {
   final String url;
   final String title;
   final int id;
+  final bool collect;
 
-  CustomWebView({@required this.url, this.title, this.id});
+  CustomWebView({@required this.url, this.title, this.id, this.collect});
 
   @override
   _CustomWebViewState createState() => _CustomWebViewState();
@@ -20,6 +24,16 @@ class CustomWebView extends StatefulWidget {
 class _CustomWebViewState extends State<CustomWebView> {
   bool _isCollect = false;
   FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('_isCollect: $_isCollect');
+/*    setState(() {
+      _isCollect = widget.collect;
+    });*/
+  }
 
   @override
   void deactivate() {
@@ -96,11 +110,54 @@ class _CustomWebViewState extends State<CustomWebView> {
   }
 
   Future<void> collectArticle() async {
-    bool result = await ApiUser.collectArticle(context: context, id: widget.id);
+    bool result;
+    if (!Application.isLogin) {
+      showToast(msg: '请先登陆');
+      return;
+    }
+    if (_isCollect) {
+      print('取消收藏');
+      result = await ApiUser.unCollectArticle(context: context, id: widget.id);
+    } else {
+      print('收藏');
+      result = await ApiUser.collectArticle(context: context, id: widget.id);
+    }
+    switchCollect(result);
+  }
+
+  Widget _buildDialog() {
+    return Container(
+      child: RaisedButton(
+        child: Text('切换'),
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('提示'),
+                  content: Text('确认删除吗？'),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('取消'),
+                      onPressed: () {},
+                    ),
+                    FlatButton(
+                      child: Text('确认'),
+                      onPressed: () {},
+                    ),
+                  ],
+                );
+              });
+        },
+      ),
+    );
+  }
+
+  void switchCollect(bool result) {
     if (result) {
       setState(() {
-        _isCollect = true;
-        showToast(msg: '收藏成功');
+        _isCollect = !_isCollect;
+        _isCollect ? showToast(msg: '收藏成功') : showToast(msg: '取消收藏成功');
       });
     }
   }
