@@ -7,7 +7,6 @@ import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/user_login.dart';
 import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/util/screen.dart';
-import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/button_progress_indicator.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
 import 'package:happy_android_flutter/widget/toast.dart';

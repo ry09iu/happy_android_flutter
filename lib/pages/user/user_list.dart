@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
-import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/pages/user/child/about_page.dart';
 import 'package:happy_android_flutter/pages/user/child/coin_page.dart';
 import 'package:happy_android_flutter/pages/user/child/favourite_page.dart';

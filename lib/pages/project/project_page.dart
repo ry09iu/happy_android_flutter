@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:happy_android_flutter/api/project.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/project_tree.dart';

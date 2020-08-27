@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (_banners.length == 0 || _articleList.length == 0) {
       return Scaffold(
         appBar: AppBar(

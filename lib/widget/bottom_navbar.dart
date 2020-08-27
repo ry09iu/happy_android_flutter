@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
+// ignore: must_be_immutable
 class BottomNavBar extends StatefulWidget {
   ValueChanged tapCallBack;
 

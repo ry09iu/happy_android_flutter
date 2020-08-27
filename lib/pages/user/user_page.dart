@@ -9,7 +9,6 @@ import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/pages/user/user_list.dart';
 import 'package:happy_android_flutter/pages/user/user_login.dart';
 import 'package:happy_android_flutter/util/screen.dart';
-import 'package:happy_android_flutter/widget/bottom_clipper.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
 import 'package:happy_android_flutter/widget/top_clipper.dart';
 

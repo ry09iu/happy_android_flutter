@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:happy_android_flutter/api/wx_article.dart';
 import 'package:happy_android_flutter/constant/app_colors.dart';
 import 'package:happy_android_flutter/model/wx_article_chapter.dart';
-import 'package:happy_android_flutter/pages/project/project_list.dart';
 import 'package:happy_android_flutter/pages/wx_article/wx_article_list.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 

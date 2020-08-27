@@ -6,6 +6,7 @@ import 'package:happy_android_flutter/pages/home/home_article_item.dart';
 import 'package:happy_android_flutter/pages/home/home_banner.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 
+// ignore: must_be_immutable
 class HomeArticleListView extends StatefulWidget {
   final List<HomeBannerModel> banners;
   final List<ArticleListModel> article;
