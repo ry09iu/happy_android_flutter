@@ -17,4 +17,12 @@ class ApiUser {
         .post(Api.USER_REGISTER, context: context, params: params);
     return UserLoginResponseModel.fromJson(response['data']);
   }
+
+  static Future<bool> userLogout(
+      {@required BuildContext context, Map<String, dynamic> params}) async {
+    var response = await HttpUtil()
+        .get(Api.USER_LOGOUT, context: context, params: params);
+    if (response['data'] == null) return true;
+    return false;
+  }
 }

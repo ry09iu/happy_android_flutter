@@ -8,6 +8,7 @@ import 'package:happy_android_flutter/model/user_login.dart';
 import 'package:happy_android_flutter/pages/user/login_event.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
+import 'package:happy_android_flutter/widget/button_progress_indicator.dart';
 import 'package:happy_android_flutter/widget/input_form.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
 
@@ -17,6 +18,7 @@ class UserRegisterPage extends StatefulWidget {
 }
 
 class _UserRegisterPageState extends State<UserRegisterPage> {
+  bool isLoading = false;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _rePasswordController = TextEditingController();
@@ -120,10 +122,11 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
       width: Screen.width,
       height: duSetH(128),
       child: FlatButton(
-        child: Text(
-          '注册',
-          style: TextStyle(letterSpacing: duSetW(10)),
-        ),
+        child: isLoading
+            ? ButtonProgressIndicator()
+            : Text('注册',
+                style: TextStyle(
+                    letterSpacing: duSetW(10), fontSize: duSetSp(44))),
         color: AppColor.primaryColor,
         shape: StadiumBorder(
           side: BorderSide(color: AppColor.primaryColor),
@@ -134,6 +137,12 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
         },
       ),
     );
+  }
+
+  void switchLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
   }
 
   Widget _buildHeader() {
@@ -159,6 +168,14 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
     if (!validInput()) {
       return;
     }
+
+    if (isLoading) {
+      showToast(msg: '系统繁忙，请稍后');
+      return;
+    }
+
+    switchLoading();
+
     Map<String, dynamic> params = Map();
     params['username'] = _usernameController.value.text;
     params['password'] = _passwordController.value.text;
@@ -168,12 +185,14 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
     FocusScope.of(context).requestFocus(FocusNode());
     UserLoginResponseModel userProfile =
         await ApiUser.userRegister(context: context, params: params);
-    print(userProfile);
+    /*print(userProfile);*/
     if (userProfile == null) {
       showToast(msg: '登录失败');
     } else {
       await dataTools.setLoginState(true);
       await dataTools.setLoginUserName(userProfile.username);
+
+      switchLoading();
       //发送事件
       Application.eventBus
           .fire(LoginEvent(userProfile.username, userProfile.id.toString()));

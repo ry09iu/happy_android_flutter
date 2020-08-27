@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
       ),
@@ -122,8 +123,8 @@ class _LoginPageState extends State<LoginPage> {
         child: isLoading
             ? ButtonProgressIndicator()
             : Text('登录',
-                style:
-                    TextStyle(letterSpacing: duSetW(10), fontSize: duSetW(44))),
+                style: TextStyle(
+                    letterSpacing: duSetW(10), fontSize: duSetSp(44))),
         color: AppColor.primaryColor,
         shape: StadiumBorder(
           side: BorderSide(color: AppColor.primaryColor),
@@ -138,6 +139,10 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _userLoginSubmit() async {
     if (!validInput()) {
+      return;
+    }
+    if (isLoading) {
+      showToast(msg: '系统繁忙，请稍后');
       return;
     }
 

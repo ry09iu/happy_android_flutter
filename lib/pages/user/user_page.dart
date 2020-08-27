@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/api/user.dart';
 import 'package:happy_android_flutter/common/application.dart';
 import 'package:happy_android_flutter/common/data_tool.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
@@ -9,6 +10,7 @@ import 'package:happy_android_flutter/pages/user/user_list.dart';
 import 'package:happy_android_flutter/pages/user/user_login.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/widget/bottom_clipper.dart';
+import 'package:happy_android_flutter/widget/toast.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -58,6 +60,7 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
 /*      appBar: AppBar(
         title: Text('我的'),
         elevation: 0,
@@ -81,6 +84,7 @@ class _UserPageState extends State<UserPage> {
                     height: duSetH(500),
                   ),
                 ),
+                _buildLogout(),
                 _buildHeader(context),
               ],
             ),
@@ -149,6 +153,42 @@ class _UserPageState extends State<UserPage> {
         ],
       ),
     );
+  }
+
+  Widget _buildLogout() {
+    if (userName == null || userName == '') {
+      return Container();
+    }
+    return Positioned(
+      top: 0,
+      right: duSetW(48),
+      child: GestureDetector(
+        onTap: () {
+          logout();
+        },
+        child: Icon(
+          Icons.exit_to_app,
+          color: Colors.white,
+          size: duSetSp(64),
+        ),
+      ),
+    );
+  }
+
+  Future<void> logout() async {
+    bool result = await ApiUser.userLogout(context: context);
+    print(result);
+    if (result) {
+      showToast(msg: '退出成功');
+      dataTools.setLoginState(false);
+      dataTools.clearUserName();
+      dataTools.clearUserID();
+
+      setState(() {
+        userName = '';
+        userId = '';
+      });
+    }
   }
 
   void showLoginPage() {
