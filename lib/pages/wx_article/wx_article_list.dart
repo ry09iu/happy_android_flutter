@@ -4,6 +4,7 @@ import 'package:happy_android_flutter/api/wx_article.dart';
 import 'package:happy_android_flutter/model/article_list.dart';
 import 'package:happy_android_flutter/pages/wx_article/wx_article_item.dart';
 import 'package:happy_android_flutter/util/screen.dart';
+import 'package:happy_android_flutter/widget/refresh_more.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
 
 class WxArticleListView extends StatefulWidget {
@@ -89,30 +90,11 @@ class _WxArticleListViewState extends State<WxArticleListView>
           itemCount: _article.length,
           itemBuilder: (BuildContext context, int index) {
             if (index == _article.length - 1 && _isLoading) {
-              return _buildLoadMore();
+              return refreshLoadMore(text: _loadingText);
             }
             return WxArticleItemView(article: _article[index]);
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildLoadMore() {
-    return Container(
-      width: Screen.width,
-      height: duSetH(140),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          _loadingText == '没有更多' ? Container() : CupertinoActivityIndicator(),
-          SizedBox(width: 6),
-          Text(
-            _loadingText,
-            style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-          )
-        ],
       ),
     );
   }

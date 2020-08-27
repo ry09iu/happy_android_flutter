@@ -4,6 +4,8 @@ import 'package:happy_android_flutter/api/user.dart';
 import 'package:happy_android_flutter/model/user_coin_list.dart';
 import 'package:happy_android_flutter/util/screen.dart';
 import 'package:happy_android_flutter/util/time.dart';
+import 'package:happy_android_flutter/widget/refresh_more.dart';
+import 'package:happy_android_flutter/widget/toast.dart';
 import 'package:happy_android_flutter/widget/top_clipper.dart';
 
 class CoinPage extends StatefulWidget {
@@ -13,6 +15,8 @@ class CoinPage extends StatefulWidget {
 
 class _CoinPageState extends State<CoinPage> {
   int _page = 1;
+  bool _isLoading = false;
+  String _loadingText = '加载更多';
   List<UserCoinListModel> _coinList;
   ScrollController _scrollController;
 
@@ -21,15 +25,41 @@ class _CoinPageState extends State<CoinPage> {
     // TODO: implement initState
     super.initState();
     _scrollController = ScrollController();
-    initListData();
+    _scrollController.addListener(() {
+      var maxScroll = _scrollController.position.maxScrollExtent - duSetH(200);
+      var pixels = _scrollController.position.pixels;
+      if (pixels >= maxScroll) {
+        print('加载更多');
+        _page += 1;
+        setState(() {
+          _isLoading = true;
+          initListData(true);
+        });
+      }
+    });
+    initListData(false);
   }
 
-  Future<void> initListData() async {
+  Future<void> initListData(bool loadMore) async {
     var list = await ApiUser.userCoinList(context: context, page: _page);
     print(list);
     setState(() {
-      _coinList = list;
+      if (loadMore && list.length > 0) {
+        _isLoading = false;
+        _coinList.addAll(list);
+      } else if (list.length == 0) {
+        _loadingText = '没有更多';
+      } else {
+        _coinList = list;
+        showToast(msg: '刷新完毕');
+      }
     });
+  }
+
+  Future<void> _pullToRefresh() async {
+    _page = 1;
+    _coinList.clear();
+    initListData(false);
   }
 
   @override
@@ -41,16 +71,6 @@ class _CoinPageState extends State<CoinPage> {
 
   @override
   Widget build(BuildContext context) {
-    /*if (_coinList == null) {
-      return Scaffold(
-          appBar: AppBar(
-            title: Text('我的积分'),
-            elevation: 0,
-          ),
-          body: Container(
-            child: Text('111'),
-          ));
-    }*/
     return Scaffold(
       appBar: AppBar(
         title: Text('我的积分'),
@@ -85,16 +105,24 @@ class _CoinPageState extends State<CoinPage> {
                     ),
                   ),
                   Expanded(
+                      child: RefreshIndicator(
+                    onRefresh: _pullToRefresh,
                     child: ListView.separated(
                         controller: _scrollController,
-                        itemCount: _coinList.length,
+                        itemCount: _coinList.length + 1,
                         separatorBuilder: (BuildContext context, int index) {
                           return Divider();
                         },
                         itemBuilder: (BuildContext context, int index) {
+                          if (index == _coinList.length - 1 && _isLoading) {
+                            return refreshLoadMore(text: _loadingText);
+                          }
+                          if (index == _coinList.length) {
+                            return refreshLoadMore(text: '没有更多');
+                          }
                           return _buildCoinListItem(_coinList[index]);
                         }),
-                  )
+                  ))
                 ],
               ),
             ),

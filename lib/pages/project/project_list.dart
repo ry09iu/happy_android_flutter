@@ -4,6 +4,7 @@ import 'package:happy_android_flutter/api/project.dart';
 import 'package:happy_android_flutter/model/project_list.dart';
 import 'package:happy_android_flutter/pages/project/project_item.dart';
 import 'package:happy_android_flutter/util/screen.dart';
+import 'package:happy_android_flutter/widget/refresh_more.dart';
 import 'package:happy_android_flutter/widget/toast.dart';
 
 class ProjectListView extends StatefulWidget {
@@ -89,30 +90,11 @@ class _ProjectListViewState extends State<ProjectListView>
           itemCount: _projectList.length,
           itemBuilder: (BuildContext context, int index) {
             if (index == _projectList.length - 1 && _isLoading) {
-              return _buildLoadMore();
+              return refreshLoadMore(text: _loadingText);
             }
             return ProjectItemView(article: _projectList[index]);
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildLoadMore() {
-    return Container(
-      width: Screen.width,
-      height: duSetH(140),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          _loadingText == '没有更多' ? Container() : CupertinoActivityIndicator(),
-          SizedBox(width: 6),
-          Text(
-            _loadingText,
-            style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-          )
-        ],
       ),
     );
   }

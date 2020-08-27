@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColor.primaryColor,
-        platform: TargetPlatform.iOS, //右滑返回
+        /*platform: TargetPlatform.iOS,*/ //右滑返回
       ),
       title: '玩 Android',
       routes: Routes.routes,

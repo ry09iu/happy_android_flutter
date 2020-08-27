@@ -5,6 +5,7 @@ import 'package:happy_android_flutter/model/home_banner.dart';
 import 'package:happy_android_flutter/pages/home/home_article_item.dart';
 import 'package:happy_android_flutter/pages/home/home_banner.dart';
 import 'package:happy_android_flutter/util/screen.dart';
+import 'package:happy_android_flutter/widget/refresh_more.dart';
 
 // ignore: must_be_immutable
 class HomeArticleListView extends StatefulWidget {
@@ -64,31 +65,10 @@ class _HomeArticleListViewState extends State<HomeArticleListView> {
           itemBuilder: (BuildContext context, int index) {
             if (index == 0) return HomeBannerView(widget.banners);
             if (index == widget.article.length - 1 && _isLoading) {
-              return _buildLoadMore();
+              return refreshLoadMore(text: widget.loadingText);
             }
             return HomeArticleItemView(widget.article[index]);
           }),
-    );
-  }
-
-  Widget _buildLoadMore() {
-    return Container(
-      width: Screen.width,
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          widget.loadingText == '没有更多'
-              ? Container()
-              : CupertinoActivityIndicator(),
-          SizedBox(width: 6),
-          Text(
-            widget.loadingText,
-            style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
-          )
-        ],
-      ),
     );
   }
 }
