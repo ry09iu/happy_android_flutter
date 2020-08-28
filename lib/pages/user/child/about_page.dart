@@ -20,9 +20,8 @@ class AboutPage extends StatelessWidget {
               style:
                   TextStyle(fontSize: duSetSp(50), fontWeight: FontWeight.w600),
             ),
-            Text('  - 初始版本发布',
-                style: TextStyle(
-                    fontSize: duSetSp(40)))
+            Text('  - 初始版本发布', style: TextStyle(fontSize: duSetSp(40))),
+            Text('  - 本程序 API 接口由 wanandroid 提供，在此表示感谢', style: TextStyle(fontSize: duSetSp(40)))
           ],
         ),
       ),
