@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:happy_android_flutter/common/application.dart';
 import 'package:happy_android_flutter/common/navigator.dart';
 import 'package:happy_android_flutter/pages/user/child/about_page.dart';
 import 'package:happy_android_flutter/pages/user/child/coin_page.dart';
 import 'package:happy_android_flutter/pages/user/child/favourite_page.dart';
 import 'package:happy_android_flutter/pages/user/child/settings_page.dart';
 import 'package:happy_android_flutter/util/screen.dart';
+import 'package:happy_android_flutter/widget/toast.dart';
 
 class UserListView extends StatefulWidget {
   @override
@@ -31,9 +33,9 @@ class _UserListViewState extends State<UserListView> {
 
   Widget _buildListItem(var item) {
     return Container(
-      padding: EdgeInsets.only(left: duSetW(40), right: duSetW(40)),
+      padding: EdgeInsets.symmetric(horizontal: duSetW(40)),
       child: ListTileTheme(
-        dense: true,
+        /*dense: true,*/
         child: ListTile(
           onTap: () {
             _itemTap(item['key']);
@@ -101,6 +103,10 @@ class _UserListViewState extends State<UserListView> {
   }*/
 
   void _itemTap(String key) {
+    if (!Application.isLogin) {
+      showToast(msg: '请先登陆');
+      return;
+    }
     switch (key) {
       case 'coin':
         AppNavigator.push(context: context, scene: CoinPage());

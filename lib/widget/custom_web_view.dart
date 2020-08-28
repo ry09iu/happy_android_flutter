@@ -28,7 +28,9 @@ class _CustomWebViewState extends State<CustomWebView> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      _isCollect = widget.collect;
+      if (Application.isLogin) {
+        _isCollect = widget.collect;
+      }
     });
   }
 
