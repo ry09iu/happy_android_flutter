@@ -5,6 +5,7 @@ import 'package:happy_android_flutter/constant/api.dart';
 import 'package:happy_android_flutter/model/article_list_base.dart';
 import 'package:happy_android_flutter/model/user_coin_info.dart';
 import 'package:happy_android_flutter/model/user_coin_list.dart';
+import 'package:happy_android_flutter/model/user_collect_list.dart';
 import 'package:happy_android_flutter/model/user_login.dart';
 import 'package:happy_android_flutter/util/http_util.dart';
 
@@ -91,5 +92,20 @@ class ApiUser {
       return true;
     }
     return false;
+  }
+
+  static Future<List<UserCollectListModel>> userCollectList(
+      {@required BuildContext context,
+      int page = 0,
+      Map<String, dynamic> params}) async {
+    var response = await HttpUtil().get(
+        Api.USER_COLLECT_LIST + page.toString() + '/json',
+        context: context,
+        params: params);
+
+    ArticleListBaseModel list = ArticleListBaseModel.fromJson(response['data']);
+    return list.datas.map<UserCollectListModel>((item) {
+      return UserCollectListModel.fromJson(item);
+    }).toList();
   }
 }

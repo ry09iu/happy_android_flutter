@@ -47,4 +47,7 @@ class Api {
 
   // 取消收藏文章（从我的收藏列表）
   static const String UNCOLLECT_ARTICLES = "/lg/uncollect/";
+
+  // 我的收藏列表
+  static const String USER_COLLECT_LIST = "/lg/collect/list/";
 }
