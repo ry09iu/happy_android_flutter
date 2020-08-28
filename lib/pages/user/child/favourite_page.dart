@@ -41,7 +41,7 @@ class _FavouritePageState extends State<FavouritePage> {
 
   Future<void> initListData(bool loadMore) async {
     var list = await ApiUser.userCollectList(context: context, page: _page);
-    print(list);
+    /*print(list);*/
     setState(() {
       if (loadMore && list.length > 0) {
         _isLoading = false;
