@@ -16,7 +16,7 @@ class _UserListViewState extends State<UserListView> {
   var _userList = [
     {'img': 'assets/images/point.png', 'label': '我的积分', 'key': 'coin'},
     {'img': 'assets/images/favourite.png', 'label': '我的收藏', 'key': 'favourite'},
-    {'img': 'assets/images/settings.png', 'label': '设置', 'key': 'settings'},
+    /*{'img': 'assets/images/settings.png', 'label': '设置', 'key': 'settings'},*/
     {'img': 'assets/images/about.png', 'label': '关于 APP', 'key': 'about'},
   ];
 
